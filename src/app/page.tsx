@@ -1,11 +1,7 @@
 import dynamic from "next/dynamic";
 
-const Hero = dynamic(() => import("@/components/hero"));
+const ParkingSystem = dynamic(() => import("@/components/parkingSystem"));
 
 export default function Home() {
-  return (
-    <div className="min-h-screen flex flex-col">
-      <Hero />
-    </div>
-  );
+  return <ParkingSystem />;
 }
