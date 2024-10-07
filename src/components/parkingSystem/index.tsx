@@ -17,6 +17,7 @@ export default function Home() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [filterText, setFilterText] = useState("");
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
@@ -25,6 +26,15 @@ export default function Home() {
 
   const addVehicle = (licensePlate: string) => {
     if (licensePlate && vehicles.length < TOTAL_SPOTS) {
+      if (
+        vehicles.some(
+          (v) => v.licensePlate.toLowerCase() === licensePlate.toLowerCase(),
+        )
+      ) {
+        setError("A vehicle with this license plate is already parked.");
+        return;
+      }
+
       const availableSpot = Array.from(
         { length: TOTAL_SPOTS },
         (_, i) => i + 1,
@@ -51,15 +61,16 @@ export default function Home() {
   );
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <>
       <Hero />
-      <div className="flex-grow bg-gray-100 p-6">
+      <div className="flex-grow bg-background text-foreground p-6">
         <div className="max-w-4xl mx-auto">
           <ParkVehicle
             isDialogOpen={isDialogOpen}
             setIsDialogOpen={setIsDialogOpen}
             isParkingFull={vehicles.length >= TOTAL_SPOTS}
             addVehicle={addVehicle}
+            error={error}
           />
           <SpotFilter filterText={filterText} setFilterText={setFilterText} />
           {filteredVehicles.length === 0 && filterText !== "" ? (
@@ -88,6 +99,6 @@ export default function Home() {
           )}
         </div>
       </div>
-    </div>
+    </>
   );
 }

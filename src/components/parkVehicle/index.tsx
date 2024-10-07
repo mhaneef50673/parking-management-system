@@ -15,7 +15,8 @@ const ParkVehicle: React.FC<{
   setIsDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isParkingFull: boolean;
   addVehicle: AddVehicleFunction;
-}> = ({ isDialogOpen, setIsDialogOpen, isParkingFull, addVehicle }) => {
+  error?: string | null;
+}> = ({ isDialogOpen, setIsDialogOpen, isParkingFull, addVehicle, error }) => {
   const [licensePlate, setLicensePlate] = useState("");
 
   useEffect(() => {
@@ -47,7 +48,7 @@ const ParkVehicle: React.FC<{
       <Dialog.Root open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <Dialog.Trigger asChild>
           <Button
-            className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2"
+            className="inline-flex font-bold items-center justify-center whitespace-nowrap rounded-md text-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2"
             type="button"
             disabled={isParkingFull}
           >
@@ -69,6 +70,7 @@ const ParkVehicle: React.FC<{
                 onChange={(e) => setLicensePlate(e.target.value)}
                 placeholder="Enter license plate"
               />
+              {error && <p className="text-red-500 text-sm">{error}</p>}
               <Button
                 onClick={() => addVehicle(licensePlate)}
                 disabled={isParkingFull || !licensePlate}

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import dynamic from "next/dynamic";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -9,9 +10,11 @@ const geistSans = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Parking Management System",
+  title: "Park Ease",
   description: "Parking Management System",
 };
+
+const PageLayout = dynamic(() => import("@/components/pageLayout"));
 
 export default function RootLayout({
   children,
@@ -20,7 +23,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} antialiased`}>{children}</body>
+      <body className={`${geistSans.variable} antialiased`}>
+        <PageLayout>{children}</PageLayout>
+      </body>
     </html>
   );
 }
