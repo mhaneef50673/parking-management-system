@@ -5,7 +5,7 @@ const Footer: React.FC = () => {
     <footer className="bg-background text-foreground border-t">
       <div className="container mx-auto px-4 py-6">
         <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="flex items-center mb-4 md:mb-0">
+          <div className="flex items-center mb-4 md:mb-0 justify-center w-full">
             <Logo />
             <span className="ml-2 text-sm font-semibold">ParkEase</span>
           </div>

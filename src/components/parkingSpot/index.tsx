@@ -14,6 +14,7 @@ const ParkingSpot: React.FC<{
   onRemove: () => void;
   currentTime: Date;
 }> = ({ spot, vehicle, onRemove, currentTime }) => {
+  console.log("vehicle", vehicle);
   const [isHovered, setIsHovered] = useState(false);
 
   const formatDuration = (start: Date) => {
@@ -28,7 +29,7 @@ const ParkingSpot: React.FC<{
 
   return (
     <div
-      className="relative w-full h-full min-h-80"
+      className="relative w-full h-full min-h-[352px]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -36,7 +37,9 @@ const ParkingSpot: React.FC<{
         {vehicle ? (
           <div className="w-full h-full relative bg-gray-200 rounded-lg p-2">
             <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-gray-800 to-gray-600 text-white p-2 rounded-t-lg text-center">
-              <div className="font-bold">{vehicle.licensePlate}</div>
+              <div className="font-bold line-clamp-1">
+                {vehicle.licensePlate}
+              </div>
               <div className="text-sm">{formatDuration(vehicle.parkedAt)}</div>
             </div>
             <Image

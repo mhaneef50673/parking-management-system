@@ -14,6 +14,19 @@ const TOTAL_SPOTS = 10;
 
 export default function Home() {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
+
+  useEffect(() => {
+    const storedVehicles = localStorage.getItem("vehicles");
+
+    if (storedVehicles) {
+      const parsedVehicles = JSON.parse(storedVehicles).map((v: any) => ({
+        ...v,
+        parkedAt: new Date(v.parkedAt),
+      }));
+      setVehicles(parsedVehicles);
+    }
+  }, []);
+
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [filterText, setFilterText] = useState("");
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -46,14 +59,23 @@ export default function Home() {
           spot: availableSpot,
           parkedAt: new Date(),
         };
-        setVehicles([...vehicles, newVehicle]);
+        setVehicles((prevVehicles) => {
+          const updatedVehicles = [...prevVehicles, newVehicle];
+          localStorage.setItem("vehicles", JSON.stringify(updatedVehicles));
+          return updatedVehicles;
+        });
+        setError("");
         setIsDialogOpen(false);
       }
     }
   };
 
   const removeVehicle = (spot: number) => {
-    setVehicles(vehicles.filter((v) => v.spot !== spot));
+    setVehicles((prevVehicles) => {
+      const updatedVehicles = prevVehicles.filter((v) => v.spot !== spot);
+      localStorage.setItem("vehicles", JSON.stringify(updatedVehicles));
+      return updatedVehicles;
+    });
   };
 
   const filteredVehicles = vehicles.filter((v) =>
