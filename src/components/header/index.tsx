@@ -18,9 +18,9 @@ const Header: React.FC<{ toggleTheme: () => void; isDarkTheme: boolean }> = ({
           onClick={() => toggleTheme()}
         >
           {isDarkTheme ? (
-            <SunIcon className="h-[1.2rem] w-[1.2rem]" />
+            <SunIcon className="h-[1.2rem] w-[1.2rem]" data-testid="sun-icon" />
           ) : (
-            <MoonIcon className="h-[1.2rem] w-[1.2rem]" />
+            <MoonIcon className="h-[1.2rem] w-[1.2rem]" data-testid="moon-icon" />
           )}
         </Button>
       </div>

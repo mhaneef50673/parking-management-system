@@ -19,10 +19,12 @@ export default function Home() {
     const storedVehicles = localStorage.getItem("vehicles");
 
     if (storedVehicles) {
-      const parsedVehicles = JSON.parse(storedVehicles).map((v: any) => ({
-        ...v,
-        parkedAt: new Date(v.parkedAt),
-      }));
+      const parsedVehicles: Vehicle[] = JSON.parse(storedVehicles).map(
+        (v: Vehicle) => ({
+          ...v,
+          parkedAt: new Date(v.parkedAt),
+        }),
+      );
       setVehicles(parsedVehicles);
     }
   }, []);
@@ -36,6 +38,12 @@ export default function Home() {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    if (!isDialogOpen) {
+      setError("");
+    }
+  }, [isDialogOpen]);
 
   const addVehicle = (licensePlate: string) => {
     if (licensePlate && vehicles.length < TOTAL_SPOTS) {

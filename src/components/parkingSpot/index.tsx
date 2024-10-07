@@ -14,7 +14,6 @@ const ParkingSpot: React.FC<{
   onRemove: () => void;
   currentTime: Date;
 }> = ({ spot, vehicle, onRemove, currentTime }) => {
-  console.log("vehicle", vehicle);
   const [isHovered, setIsHovered] = useState(false);
 
   const formatDuration = (start: Date) => {
@@ -32,6 +31,7 @@ const ParkingSpot: React.FC<{
       className="relative w-full h-full min-h-[352px]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      data-testid={vehicle?.licensePlate}
     >
       <div className="w-full h-full">
         {vehicle ? (
@@ -61,6 +61,7 @@ const ParkingSpot: React.FC<{
           <Button
             onClick={onRemove}
             className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 h-9 px-4 py-2"
+            data-testid={`remove-${vehicle.licensePlate}`}
           >
             Remove Vehicle
           </Button>
