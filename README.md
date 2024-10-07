@@ -7,6 +7,9 @@ This project uses localStorage to persist the component state. While this approa
 
 I have used this technique just for demostration purpose
 
+## Deployed on vercel
+This project has been deployed on Vercel. [Click here](https://parking-management-system-sigma.vercel.app/) to view the project
+
 ## Setup
 To set up the project, follow these steps:
 1. Clone the repository: `git clone https://github.com/mhaneef50673/parking-management-system.git`
