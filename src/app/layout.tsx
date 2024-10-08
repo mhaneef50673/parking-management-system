@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Script from "next/script";
+import { ThemeProvider } from "next-themes";
 import dynamic from "next/dynamic";
 import "./globals.css";
 
@@ -22,9 +24,29 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <Script
+        id="app-theme"
+        dangerouslySetInnerHTML={{
+          __html: `const localTheme = window.localStorage.getItem("theme")
+   
+              if (localTheme === "dark") {
+                document.documentElement.classList.add("dark")
+              }
+  
+              if (localTheme === "light" && (document.documentElement.dataset &&
+                !document.documentElement.dataset.forceDarkmode)) {
+                  document.documentElement.classList.remove("dark")
+              }
+              `,
+        }}
+        strategy="beforeInteractive"
+      ></Script>
+
       <body className={`${geistSans.variable} antialiased`}>
-        <PageLayout>{children}</PageLayout>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <PageLayout>{children}</PageLayout>
+        </ThemeProvider>
       </body>
     </html>
   );

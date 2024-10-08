@@ -46,14 +46,11 @@ const ParkVehicle: React.FC<{
         </Tooltip.Provider>
       </div>
       <Dialog.Root open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <Dialog.Trigger asChild>
-          <Button
-            className="inline-flex font-bold items-center justify-center whitespace-nowrap rounded-md text-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2"
-            type="button"
-            disabled={isParkingFull}
-          >
-            {isParkingFull ? "No spots available" : "Park Vehicle"}
-          </Button>
+        <Dialog.Trigger
+          disabled={isParkingFull}
+          className="inline-flex font-bold items-center justify-center whitespace-nowrap rounded-md text-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2"
+        >
+          {isParkingFull ? "No spots available" : "Park Vehicle"}
         </Dialog.Trigger>
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
