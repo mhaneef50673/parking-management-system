@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "deploy": "next build && next start -p 8000",
+    "deploy": "next build && next start",
     "lint": "next lint",
     "test": "jest"
   },
